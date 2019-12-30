@@ -20,7 +20,6 @@ tiger cat:
   priority: 5
   categories:
     - cat
-    - tiger
     - animal
 
 wild cat:
@@ -59,7 +58,6 @@ seashore:
   threshold: 0.3
   categories:
     - beach
-    - coast
     - water
 
 lakeside:
@@ -81,8 +79,6 @@ bannister:
 window shade:
   label: building
   categories:
-    - window
-    - house
     - architecture
 
 daisy:
@@ -98,15 +94,12 @@ rapeseed:
     - flower
     - nature
     - plant
-    - yellow
 
 fashion:
   label: portrait
   threshold: 0.1
   categories:
-    - fashion
-    - person
-    - face
+    - people
 
 poncho:
   see: fashion
@@ -274,10 +267,8 @@ stingray:
   threshold: 0.2
   categories:
     - water
-    - sea
     - fish
     - animal
-    - ray
 
 cock:
   threshold: 0.2
@@ -609,11 +600,11 @@ ruffed grouse:
     - bird
 
 prairie chicken:
+  label: chicken
   threshold: 0.3
   categories:
     - animal
     - bird
-    - chicken
 
 peacock:
   threshold: 0.3
@@ -731,7 +722,6 @@ wombat:
 jellyfish:
   categories:
     - water
-    - sea
     - animal
     - fish
 
@@ -760,22 +750,17 @@ conch:
 snail:
   categories:
     - animal
-    - slug
 
 slug:
+  priority: -1
   categories:
     - animal
 
 sea slug:
-  priority: -1
-  categories:
-    - animal
-    - slug
+  see: slug
 
 chambered nautilus:
-  categories:
-    - animal
-    - slug
+  see: snail
 
 crab:
   label: crab
@@ -801,7 +786,7 @@ lobster:
   label: lobster
   categories:
     - animal
-    - food
+    - cooking
     - water
 
 american lobster:
@@ -924,7 +909,6 @@ dog:
   priority: 5
   categories:
     - animal
-    - puppy
 
 chihuahua dog:
   see: dog
@@ -1480,20 +1464,17 @@ starfish:
   threshold: 0.5
   categories:
     - water
-    - sea
     - animal
     - fish
 
 sea urchin:
   categories:
     - water
-    - sea
     - animal
 
 sea cucumber:
   categories:
     - water
-    - sea
     - animal
 
 rabbit:
@@ -1789,7 +1770,6 @@ fish:
   threshold: 0.2
   categories:
     - water
-    - sea
     - animal
 
 barracouta:
@@ -1856,8 +1836,6 @@ airship:
 ambulance:
   label: van
   categories:
-    - road
-    - car
     - vehicle
 
 amphibian:
@@ -1877,9 +1855,7 @@ backpack:
 
 bakery:
   categories:
-    - bread
     - shop
-    - store
 
 ballpoint:
   categories:
@@ -1906,51 +1882,46 @@ barbershop:
 
 barn:
   cateories:
-    - building
+    - architecture
 
 bassoon:
   label: entertainment
 
 bathing cap:
   categories:
-    - bathroom
-    - bathing
+    - people
+    - water
 
 bath towel:
   categories:
-    - bathroom
-    - bathing
-    - towel
+    - water
 
 bathtub:
   categories:
-    - bathroom
-    - bathing
+    - water
+    - indoor
 
 beacon:
   categories:
-    - building
     - tower
     - architecture
 
-beer bottle:
+beer:
+  label: beer
   categories:
-    - beer
-    - bottle
-    - drink
-    - alcohol
+    - beverage
+    - drinks
+
+beer bottle:
+  see: beer
 
 beer glass:
-  categories:
-    - beer
-    - glass
-    - drink
-    - alcohol
+  see: beer
 
 bell cote:
   label: church
   categories:
-    - bell
+    - architecture
 
 bicycle-built-for-two:
   categories:
@@ -1960,21 +1931,18 @@ bicycle-built-for-two:
 
 birdhouse:
   categories:
-    - building
-    - house
+    - bird
+    - outdoor
 
 boathouse:
   categories:
-    - building
-    - house
+    - architecture
     - water
 
 bobsled:
+  label: sports
   categories:
     - snow
-    - bob
-    - sports
-    - winter
 
 bookcase:
   categories:
@@ -1990,7 +1958,6 @@ tobacco shop:
 breakwater:
   categories:
     - water
-    - see
 
 bullet train:
   label: train
@@ -2000,13 +1967,12 @@ bullet train:
 butcher shop:
   categories:
     - shop
-    - store
 
 cab:
   threshold: 0.6
   categories:
     - car
-    - road
+    - vehicle
 
 cannon:
   categories:
@@ -2020,31 +1986,30 @@ canoe:
     - sports
 
 can opener:
-  label: kitchen
-  categories:
-    - cooking
+  label: cooking
 
 car mirror:
   label: car
 
 carpenter's kit:
-  categories:
-    - tool
+  label: tool
     - tool kit
 
 car wheel:
+  label: car
   categories:
-    - car
+    - vehicle
 
 castle:
   categories:
-    - building
-    - old
+    - historic
     - architecture
 
 catamaran:
   categories:
     - boat
+    - vehicle
+    - water
 
 cello:
   see: instrument
@@ -2063,25 +2028,23 @@ chiffonier:
   label: furniture
   categories:
     - indoor
-    - cupboard
 
 chime:
   see: instrument
 
 china cabinet:
+  label: furniture
   categories:
-    - furniture
-    - cupboard
+    - indoor
 
 church:
   categories:
     - building
-    - religion
+    - architecture
 
 cleaver:
   categories:
-    - knife
-    - kitchen
+    - cooking
 
 cliff dwelling:
   categories:
@@ -2093,18 +2056,16 @@ clog:
 
 cocktail shaker:
   categories:
-    - drink
-    - alcohol
+    - beverage
+    - drinks
 
 coffee mug:
   categories:
-    - mug
-    - drink
+    - beverage
 
 coffeepot:
   categoried:
-    - coffee
-    - drink
+    - beverage
 
 combination lock:
   label: lock
@@ -2113,13 +2074,9 @@ computer keyboard:
   label: keyboard
   categories:
     - computer
-    - laptop
-    - notebook
 
 confectionery:
   label: shop
-  categorie:
-    - store
 
 container ship:
   see: ship
@@ -2140,8 +2097,6 @@ crash helmet:
 
 crock pot:
   label: cooking
-  categories:
-    - kitchen
 
 dam:
   categories:
@@ -2173,7 +2128,7 @@ maze:
 dishrag:
   priority: -2
   categories:
-    - towel
+    - indoor
 
 dishwasher:
   priority: -2
@@ -2184,7 +2139,6 @@ disk brake:
 dock:
   categories:
     - water
-    - sea
 
 dogsled:
   categories:
@@ -2209,7 +2163,6 @@ dumbbell:
 
 dutch oven:
   categories:
-    - kitchen
     - cooking
 
 electric guitar:
@@ -2225,9 +2178,7 @@ entertainment center:
 
 espresso maker:
   categories:
-    - coffee
-    - espresso
-    - kitchen
+    - beverage
 
 face powder:
   categories:
@@ -2257,16 +2208,15 @@ folding chair:
     - chair
 
 football helmet:
-  categories:
-    - fottball
-    - sports
-    - helmet
+  label: sports
 
 forklift:
   categories:
     - construction side
 
 fountain:
+  label: outdoor
+  threshold: 0.4
   categories:
     - water
 
@@ -2280,10 +2230,9 @@ four-poster:
     - furniture
 
 freight car:
+  label: vehicle
   catgories:
     - train
-    - vehicle
-    - road
 
 french horn:
   see: instrument
@@ -2291,7 +2240,6 @@ french horn:
 frying pan:
   label: pan
   categories:
-    - kitchen
     - cooking
 
 garbage truck:
@@ -2327,7 +2275,6 @@ greenhouse:
 
 grocery store:
   categories:
-    - store
     - shop
 
 hammer:
@@ -2337,8 +2284,6 @@ hammer:
 hand-held computer:
   label: computer
   categories:
-    - laptop
-    - notebook
     - office
 
 harmonica:
@@ -2368,16 +2313,13 @@ television:
   threshold: 0.3
 
 honeycomb:
-  priority: -1
-  threshold: 0.3
-  categories:
-    - honey
-    - bee
+  priority: -2
+  threshold: 0.6
 
 jack-o'-lantern:
+  label: pumpkin
   categories:
-    - halloween
-    - squash
+    - vegetables
 
 jeep:
   categories:
@@ -2385,7 +2327,6 @@ jeep:
 
 ladle:
   categories:
-    - kitchen
     - cooking
 
 lampshade:
@@ -2395,9 +2336,6 @@ lampshade:
 
 laptop:
   label: computer
-  categories:
-    - notebook
-    - laptop
 
 lawn mower:
   categories:
@@ -2415,7 +2353,6 @@ library:
 lifeboat:
   categories:
     - water
-    - sea
     - boat
 
 lighter:
@@ -2459,7 +2396,6 @@ matchstick:
 
 measuring cup:
   categories:
-    - kitchen
     - cooking
 
 medicine chest:
@@ -2471,37 +2407,31 @@ megalith:
     - stone
 
 microphone:
+  threshold: 0.6
   categories:
     - music
-    - singing
 
 microwave:
   categories:
-    - kitchen
     - cooking
 
 minibus:
+  label: bus
   categories:
-    - car
-    - van
-    - road
+    - vehicle
 
 minivan:
   label: van
   categories:
-    - road
-    - car
-    - bus
+    - vehicle
 
 mixing bowl:
   categories:
-    - kitchen
     - cooking
 
 mobile home:
   priority: -1
   categories:
-    - house
     - building
 
 Model T:
@@ -2515,16 +2445,12 @@ monastery:
 monitor:
   label: screen
   categories:
-    - display
     - computer
 
 mosque:
   label: tower
   categories:
     - building
-    - church
-    - mosque
-    - chapel
     - architecture
 
 mountain bike:
@@ -2541,15 +2467,10 @@ mountain tent:
 moving van:
   label: van
   categories:
-    - road
-    - car
-    - bus
+    - vehicle
 
 notebook:
   label: computer
-  categories:
-    - laptop
-    - notebook
 
 obelisk:
   label: tower
@@ -2583,7 +2504,6 @@ paddle:
 paddlewheel:
   categories:
     - water
-    - sea
 
 padlock:
   label: tool
@@ -2600,8 +2520,8 @@ paintbrush:
 palace:
   label: historic architecture
   categories:
-    - building
-    - house
+    - historic
+    - architecture
 
 panpipe:
   label: goods
@@ -2612,14 +2532,14 @@ paper towel:
   threshold: 0.2
 
 parachute:
+  label: sports
+  threshold: 0.3
   categories:
-    - flying
-    - sports
+    - outdoor
 
 car:
   label: car
   categories:
-    - road
     - vehicle
 
 racer:
@@ -2627,12 +2547,10 @@ racer:
   threshold: 0.2
   categories:
     - car
-    - road
 
 passenger car:
   see: car
   categories:
-    - road
     - vehicle
 
 beach wagon:
@@ -2644,9 +2562,6 @@ pay-phone:
 
 petri dish:
   label: dish
-  categories:
-    - cup
-    - bowl
 
 photocopier:
   categories:
@@ -2670,9 +2585,6 @@ piggy bank:
 
 pill bottle:
   label: bottle
-  categories:
-    - mug
-    - cup
 
 pillow:
   threshold: 0.5
@@ -2686,7 +2598,6 @@ plane:
 
 plate rack:
   categories:
-    - kitchen
     - cleaning
 
 polaroid camera:
@@ -2697,9 +2608,7 @@ polaroid camera:
 police van:
   label: van
   categories:
-    - road
-    - car
-    - bus
+    - vehicle
 
 pool table:
   categories:
@@ -2714,7 +2623,6 @@ pot:
   label: plant
   categories:
     - nature
-    - weed
 
 power drill:
   categories:
@@ -2734,19 +2642,15 @@ printer:
 prison:
   categories:
     - building
+    - architecture
 
 punching bag:
-  categories:
-    - boxing
-    - sports
+  label: sports
 
 recreational vehicle:
   label: camper
   categories:
-    - bus
-    - van
     - vehicle
-    - road
 
 reflex camera:
   categories:
@@ -2755,12 +2659,11 @@ reflex camera:
 
 refrigerator:
   categories:
-    - kitchen
+    - indoor
 
 restaurant:
   categories:
-    - food
-    - lunch
+    - cooking
 
 revolver:
   categories:
@@ -2805,32 +2708,28 @@ sax:
   see: instrument
 
 school bus:
+  label: bus
   categories:
-    - bus
-    - van
-    - road
+    - vehicle
 
 schooner:
   see: ship
 
 screwdriver:
+  threshold: 0.5
   categories:
     - tool
 
 shoe shop:
-  categories:
-    - store
+  label: shop
 
 shopping basket:
   categories:
     - basket
     - shop
-    - store
 
 shopping cart:
-  categories:
-    - shop
-    - store
+  label: shop
 
 shovel:
   categories:
@@ -2839,7 +2738,6 @@ shovel:
 
 ski:
   categories:
-    - winter
     - snow
     - sports
     - outdoor
@@ -2856,7 +2754,6 @@ snorkel:
   categories:
     - swimming
     - water
-    - sea
 
 snowmobile:
   categories:
@@ -2879,26 +2776,24 @@ sombrero:
 
 soup bowl:
   categories:
-    - kitchen
+    - cooking
 
 space heater:
   label: heater
 
 spatula:
   categories:
-    - kitchen
+    - cooking
 
 speedboat:
   categories:
     - water
-    - sea
     - boat
 
 sports car:
   categories:
     - car
     - vehicle
-    - road
 
 spotlight:
   categories:
@@ -2917,17 +2812,16 @@ steel drum:
 
 stove:
   categories:
-    - kitchen
+    - cooking
 
 strainer:
   categories:
-    - kitchen
+    - cooking
 
 streetcar:
   categories:
     - train
     - vehicle
-    - road
 
 studio couch:
   label: couch
@@ -2937,7 +2831,6 @@ studio couch:
 submarine:
   categories:
     - water
-    - sea
     - boat
 
 suspension bridge:
@@ -2960,15 +2853,15 @@ table lamp:
 
 teapot:
   categories:
-    - kitchen
-    - tea
+    - cooking
 
 theater curtain:
   label: curtain
 
 toaster:
   categories:
-    - kitchen
+    - cooking
+    - indoor
 
 toilet seat:
   label: toilet
@@ -2983,8 +2876,6 @@ tow truck:
 
 toyshop:
   label: shop
-  categories:
-    - store
 
 trailer truck:
   label: truck
@@ -2993,7 +2884,6 @@ trimaran:
   categories:
     - boat
     - water
-    - sea
 
 triumphal arch:
   categories:
@@ -3003,8 +2893,7 @@ triumphal arch:
 trolleybus:
   label: bus
   categories:
-    - van
-    - road
+    - vehicle
 
 trombone:
   see: instrument
@@ -3026,7 +2915,7 @@ violin:
 
 waffle iron:
   categories:
-    - kitchen
+    - cooking
 
 wall clock:
   label: clock
@@ -3054,17 +2943,18 @@ water tower:
     - architecture
 
 wine bottle:
+  label: bottle
   categories:
-    - bottle
-    - wine
+    - beverage
+    - drinks
 
 wok:
   categories:
-    - kitchen
+    - cooking
 
 wooden spoon:
   categories:
-    - kitchen
+    - cooking
 
 worm fence:
   label: outdoor
@@ -3075,10 +2965,8 @@ wreck:
 
 yawl:
   categories:
-    - ship
     - boat
     - water
-    - sea
     - vehicle
 
 yurt:
@@ -3094,214 +2982,197 @@ book jacket:
 
 guacamole:
   categories:
-    - avocado
-    - food
+    - vegetables
+    - cooking
 
 consomme:
   categories:
-    - soup
-    - food
+    - cooking
 
 hot pot:
   categories:
-    - soup
-    - food
+    - cooking
 
 trifle:
   categories:
-    - dessert
-    - food
+    - cooking
 
 ice cream:
   categories:
-    - dessert
-    - food
+    - sweets
 
 ice lolly:
   categories:
-    - desser
-    - food
-    - ice cream
+    - sweets
 
 french loaf:
   categories:
-    - food
-    - bread
+    - bakery
 
 bagel:
   categories:
-    - food
-    - bread
+    - bakery
 
 pretzel:
   categories:
-    - food
-    - bread
+    - bakery
 
 cheeseburger:
   categories:
-    - food
-    - burger
+    - fast food
 
 hotdog:
   categories:
-    - food
+    - fast food
 
 mashed potato:
   categories:
-    - potatoes
-    - food
+    - cooking
+    - vegetables
 
 head cabbage:
   categories:
-    - food
+    - cooking
     - vegetables
 
 broccoli:
   priority: -1
   threshold: 0.3
   categories:
-    - food
+    - cooking
     - vegetables
 
 cauliflower:
   categories:
-    - food
+    - cooking
     - vegetables
 
 zucchini:
   categories:
-    - food
-    - vegetable
+    - cooking
+    - vegetables
 
 spaghetti squash:
-  label: food
+  threshold: 0.4
+  priority: -1
+  category:
+    - cooking
 
 acorn squash:
-  label: food
+  priority: -1
+  threshold: 0.4
+  category:
+    - cooking
 
 butternut squash:
-  label: food
+  threshold: 0.4
+  priority: -1
+  category:
+    - cooking
 
 cucumber:
   categories:
-    - food
     - vegetables
 
 artichoke:
   categories:
-    - food
     - vegetables
 
 bell pepper:
   categories:
-    - food
     - vegetables
 
 mushroom:
   categories:
-    - food
     - vegetables
 
 granny smith:
+  label: apple
   categories:
-    - food
-    - fruits
-    - apple
+    - fruit
 
 strawberry:
   categories:
-    - food
-    - fruits
+    - fruit
 
 orange:
   categories:
-    - food
-    - fruits
+    - fruit
 
 lemon:
   categories:
-    - food
-    - fruits
+    - fruit
 
 fig:
   categories:
-    - food
-    - fruits
+    - fruit
 
 pineapple:
   categories:
-    - food
-    - fruits
+    - fruit
 
 banana:
   categories:
-    - food
-    - fruits
+    - fruit
 
 jackfruit:
   categories:
-    - food
-    - fruits
+    - fruit
 
 custard apple:
   categories:
-    - food
-    - fruits
+    - fruit
 
 pomegranate:
   categories:
-    - food
     - fruit
 
 carbonara:
+  label: pasta
   categories:
-    - food
-    - noodles
+    - cooking
 
 chocolate sauce:
+  label: chocolate
   categories:
-    - food
-    - dessert
-    - chocolate
+    - sweets
 
 dough:
   categories:
-    - food
+    - cooking
 
 meat loaf:
   categories:
-    - food
-    - meat
+    - cooking
 
 pizza:
   categories:
-    - food
+    - fast food
 
 potpie:
   categories:
-    - food
-    - pie
+    - cooking
 
 burrito:
   categories:
-    - food
+    - cooking
 
 red wine:
   categories:
-    - wine
-    - drink
-    - alcohol
+    - beverage
+    - drinks
+
+beverage:
+  label: beverage
+
+goblet:
+  label: beverage
 
 espresso:
-  categories:
-    - coffee
-    - drink
+  see: beverage
 
 eggnog:
-  categories:
-    - drink
-    - alcohol
+  see: beverage
 
 alp:
   label: alpine hut
@@ -3338,9 +3209,7 @@ yellow lady's slipper:
 corn:
   label: food
   categories:
-    - corn
-    - lunch
-    - vegetable
+    - vegetables
 
 acorn:
   categories:
@@ -3380,8 +3249,7 @@ hen-of-the-woods:
 
 bolete:
   categories:
-    - fungus
-    - mushroom
+    - vegetables
 
 knee pad:
   priority: -2
@@ -3400,23 +3268,17 @@ tile roof:
   label: building
   categories:
     - architecture
-    - house
 
 croquet ball:
   label: pumpkin
   categories:
-    - ball
     - round
-    - sphere
 
 ball:
+  label: sports
   priority: -1
   categories:
-    - ball
     - round
-    - sphere
-    - sports
-    - game
 
 baseball:
   see: ball
@@ -3463,6 +3325,10 @@ sunglasses:
 
 sunglass:
   see: sunglasses
+
+hourglass:
+  label: glass
+  threshold: 0.2
 
 packet:
   label: package
@@ -3519,8 +3385,6 @@ band aid:
 portrait:
   label: portrait
   categories:
-    - person
-    - face
     - people
 
 oxygen mask:
@@ -3536,8 +3400,6 @@ heritage:
   label: portrait
   categories:
     - people
-    - person
-    - face
 
 safety pin:
   priority: -1
@@ -3546,9 +3408,7 @@ safety pin:
 beaker:
   label: cup
   categories:
-    - kitchen
-    - coffee
-    - tea
+    - beverage
 
 vestment:
   label: uniform
@@ -3558,10 +3418,7 @@ vestment:
 bassinet:
   label: baby
   categories:
-    - person
-    - child
-    - portrait
-    - face
+    - people
 
 patio:
   label: building

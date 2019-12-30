@@ -7,19 +7,33 @@ import (
 	"github.com/photoprism/photoprism/internal/maps/osm"
 )
 
+/* TODO
+
+(SELECT pl.loc_label as album_name, pl.loc_country, YEAR(ph.taken_at) as taken_year, round(count(ph.id)) as photo_count FROM photos ph
+        JOIN places pl ON ph.place_id = pl.id AND pl.id <> 1
+        GROUP BY album_name, taken_year HAVING photo_count > 5) UNION (
+            SELECT c.country_name AS album_name, pl.loc_country, YEAR(ph.taken_at) as taken_year, round(count(ph.id)) as photo_count FROM photos ph
+        JOIN places pl ON ph.place_id = pl.id AND pl.id <> 1
+            JOIN countries c ON c.id = pl.loc_country
+        GROUP BY album_name, taken_year
+        HAVING photo_count > 10)
+ORDER BY loc_country, album_name, taken_year;
+
+*/
+
 // Photo location
 type Location struct {
-	ID          string `gorm:"type:varbinary(16);primary_key;"`
+	ID          uint64
 	LocLat      float64
 	LocLng      float64
-	LocName     string `gorm:"type:varchar(100);"`
-	LocCategory string `gorm:"type:varchar(50);"`
-	LocSuburb   string `gorm:"type:varchar(100);"`
-	LocPlace    string `gorm:"type:varbinary(500);index;"`
-	LocCity     string `gorm:"type:varchar(100);"`
-	LocState    string `gorm:"type:varchar(100);"`
-	LocCountry  string `gorm:"type:binary(2);"`
-	LocSource   string `gorm:"type:varbinary(16);"`
+	LocName     string
+	LocCategory string
+	LocSuburb   string
+	LocLabel    string
+	LocCity     string
+	LocState    string
+	LocCountry  string
+	LocSource   string
 }
 
 type LocationSource interface {
@@ -35,7 +49,7 @@ type LocationSource interface {
 }
 
 func NewLocation(lat, lng float64) *Location {
-	id := ID(lat, lng)
+	id := S2Encode(lat, lng)
 
 	result := &Location{
 		ID:     id,
@@ -71,8 +85,8 @@ func (l *Location) Assign(s LocationSource) error {
 		return errors.New("maps: unknown location")
 	}
 
-	if l.ID == "" {
-		l.ID = ID(l.LocLat, l.LocLng)
+	if l.ID == 0 {
+		l.ID = S2Encode(l.LocLat, l.LocLng)
 	}
 
 	l.LocName = s.Name()
@@ -81,7 +95,7 @@ func (l *Location) Assign(s LocationSource) error {
 	l.LocState = s.State()
 	l.LocCountry = s.CountryCode()
 	l.LocCategory = s.Category()
-	l.LocPlace = l.place()
+	l.LocLabel = l.label()
 
 	return nil
 }
@@ -94,7 +108,7 @@ func (l *Location) Unknown() bool {
 	return false
 }
 
-func (l *Location) place() string {
+func (l *Location) label() string {
 	if l.Unknown() {
 		return "Unknown"
 	}
@@ -103,9 +117,8 @@ func (l *Location) place() string {
 	var loc []string
 
 	shortCountry := len([]rune(countryName)) <= 20
-	shortCity := len([]rune(l.LocCity)) <= 20
 
-	if shortCity && l.LocCity != "" {
+	if l.LocCity != "" {
 		loc = append(loc, l.LocCity)
 	}
 
@@ -132,28 +145,24 @@ func (l Location) Name() string {
 	return l.LocName
 }
 
-func (l Location) City() string {
-	return l.LocCity
+func (l Location) Category() string {
+	return l.LocCategory
 }
 
 func (l Location) Suburb() string {
 	return l.LocSuburb
 }
 
+func (l Location) Label() string {
+	return l.LocLabel
+}
+
+func (l Location) City() string {
+	return l.LocCity
+}
+
 func (l Location) State() string {
 	return l.LocState
-}
-
-func (l Location) Category() string {
-	return l.LocCategory
-}
-
-func (l Location) Source() string {
-	return l.LocSource
-}
-
-func (l Location) Place() string {
-	return l.LocPlace
 }
 
 func (l Location) CountryCode() string {
@@ -162,4 +171,8 @@ func (l Location) CountryCode() string {
 
 func (l Location) CountryName() string {
 	return CountryNames[l.LocCountry]
+}
+
+func (l Location) Source() string {
+	return l.LocSource
 }

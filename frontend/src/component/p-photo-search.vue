@@ -21,20 +21,18 @@
                 <v-icon>refresh</v-icon>
             </v-btn>
 
-            <v-btn icon v-if="settings.view === 'tiles'" @click.stop="setView('details')">
+            <!-- v-btn icon v-if="settings.view === 'tiles'" @click.stop="setView('details')">
                 <v-icon>view_column</v-icon>
-            </v-btn>
+            </v-btn -->
 
             <v-btn icon v-if="settings.view === 'details'" @click.stop="setView('list')">
                 <v-icon>view_list</v-icon>
             </v-btn>
-
-            <v-btn icon v-if="settings.view === 'list'" @click.stop="setView('mosaic')">
+            <v-btn icon v-else-if="settings.view === 'list'" @click.stop="setView('mosaic')">
                 <v-icon>view_comfy</v-icon>
             </v-btn>
-
-            <v-btn icon v-if="settings.view === 'mosaic'" @click.stop="setView('tiles')">
-                <v-icon>view_module</v-icon>
+            <v-btn icon v-else @click.stop="setView('details')">
+                <v-icon>view_column</v-icon>
             </v-btn>
 
             <v-btn icon @click.stop="searchExpanded = !searchExpanded" class="p-expand-search">
@@ -56,18 +54,18 @@
                                   item-value="code"
                                   item-text="name"
                                   v-model="filter.country"
-                                  :items="options.countries">
+                                  :items="countryOptions">
                         </v-select>
                     </v-flex>
                     <v-flex xs12 sm6 md3 pa-2 class="p-camera-select">
                         <v-select @change="dropdownChange"
-                                  :label="labels.camera"
+                                  :label="labels.year"
                                   flat solo hide-details
                                   color="secondary-dark"
-                                  item-value="ID"
-                                  item-text="CameraModel"
-                                  v-model="filter.camera"
-                                  :items="options.cameras">
+                                  item-value="year"
+                                  item-text="label"
+                                  v-model="filter.year"
+                                  :items="yearOptions">
                         </v-select>
                     </v-flex>
                     <v-flex xs12 sm6 md3 pa-2 class="p-view-select">
@@ -89,7 +87,51 @@
                                   :items="options.sorting">
                         </v-select>
                     </v-flex>
-                    <v-flex xs6 pa-2 class="p-time-after">
+                    <v-flex xs12 sm6 md3 pa-2 class="p-camera-select">
+                        <v-select @change="dropdownChange"
+                                  :label="labels.camera"
+                                  flat solo hide-details
+                                  color="secondary-dark"
+                                  item-value="ID"
+                                  item-text="CameraModel"
+                                  v-model="filter.camera"
+                                  :items="cameraOptions">
+                        </v-select>
+                    </v-flex>
+                    <v-flex xs12 sm6 md3 pa-2 class="p-camera-select">
+                        <v-select @change="dropdownChange"
+                                  :label="labels.lens"
+                                  flat solo hide-details
+                                  color="secondary-dark"
+                                  item-value="ID"
+                                  item-text="LensModel"
+                                  v-model="filter.lens"
+                                  :items="lensOptions">
+                        </v-select>
+                    </v-flex>
+                    <v-flex xs12 sm6 md3 pa-2 class="p-camera-select">
+                        <v-select @change="dropdownChange"
+                                  :label="labels.color"
+                                  flat solo hide-details
+                                  color="secondary-dark"
+                                  item-value="name"
+                                  item-text="label"
+                                  v-model="filter.color"
+                                  :items="colorOptions">
+                        </v-select>
+                    </v-flex>
+                    <v-flex xs12 sm6 md3 pa-2 class="p-camera-select">
+                        <v-select @change="dropdownChange"
+                                  :label="labels.category"
+                                  flat solo hide-details
+                                  color="secondary-dark"
+                                  item-value="LabelName"
+                                  item-text="Title"
+                                  v-model="filter.label"
+                                  :items="categoryOptions">
+                        </v-select>
+                    </v-flex>
+                    <!-- v-flex xs6 pa-2 class="p-time-after">
                         <v-menu v-model="showAfterPicker"
                                 :close-on-content-click="false"
                                 :nudge-right="40"
@@ -138,7 +180,7 @@
                                            @input="datepickerChange">
                             </v-date-picker>
                         </v-menu>
-                    </v-flex>
+                    </v-flex -->
                 </v-layout>
             </v-card-text>
         </v-card>
@@ -154,41 +196,72 @@
             filterChange: Function,
         },
         data() {
-            const cameras = [{ID: 0, CameraModel: this.$gettext('All Cameras')}].concat(this.$config.getValue('cameras'));
-            const countries = [{
-                code: '',
-                name: this.$gettext('All Countries')
-            }].concat(this.$config.getValue('countries'));
-
             return {
+                config: this.$config.values,
                 searchExpanded: false,
+                all: {
+                    countries: [{ code: "", name: this.$gettext("All Countries")}],
+                    cameras: [{ID: 0, CameraModel: this.$gettext("All Cameras")}],
+                    lenses: [{ID: 0, LensModel: "All Lenses"}],
+                    colors: [{label: "All Colors", name: ""}],
+                    categories: [{LabelName: "", Title: this.$gettext("All Categories")}],
+                },
                 options: {
                     'views': [
-                        {value: 'tiles', text: this.$gettext('Tiles')},
                         {value: 'mosaic', text: this.$gettext('Mosaic')},
                         {value: 'details', text: this.$gettext('Details')},
                         {value: 'list', text: this.$gettext('List')},
                     ],
-                    'countries': countries,
-                    'cameras': cameras,
                     'sorting': [
                         {value: 'imported', text: this.$gettext('Recently imported')},
                         {value: 'newest', text: this.$gettext('Newest first')},
                         {value: 'oldest', text: this.$gettext('Oldest first')},
                     ],
                 },
-                showAfterPicker: false,
-                showBeforePicker: false,
+                // showAfterPicker: false,
+                // showBeforePicker: false,
                 labels: {
                     search: this.$gettext("Search"),
                     view: this.$gettext("View"),
                     country: this.$gettext("Country"),
                     camera: this.$gettext("Camera"),
+                    lens: this.$gettext("Lens"),
+                    year: this.$gettext("Year"),
+                    color: this.$gettext("Color"),
+                    category: this.$gettext("Category"),
                     sort: this.$gettext("Sort By"),
                     before: this.$gettext("Taken before"),
                     after: this.$gettext("Taken after"),
                 },
             };
+        },
+        computed: {
+            countryOptions() {
+                return this.all.countries.concat(this.config.countries);
+            },
+            cameraOptions() {
+                return this.all.cameras.concat(this.config.cameras);
+            },
+            lensOptions() {
+                return this.all.lenses.concat(this.config.lenses);
+            },
+            colorOptions() {
+                return this.all.colors.concat(this.config.colors);
+            },
+            categoryOptions() {
+                return this.all.categories.concat(this.config.categories);
+            },
+            yearOptions() {
+                let result = [{"year": 0, "label": "All Years"}];
+
+                if (this.config.years) {
+                    for (let i = 0; i < this.config.years.length; i++) {
+                        result.push({"year": this.config.years[i], "label": this.config.years[i].toString()});
+                    }
+                }
+
+                return result;
+            },
         },
         methods: {
             dropdownChange() {
@@ -198,15 +271,11 @@
                     this.searchExpanded = false;
                 }
             },
-            datepickerChange() {
+            /*datepickerChange() {
                 this.showAfterPicker = false;
                 this.showBeforePicker = false;
 
                 this.dropdownChange();
-            },
-            setView(name) {
-                this.settings.view = name;
-                this.filterChange();
             },
             clearBefore() {
                 this.filter.before = '';
@@ -216,10 +285,15 @@
                 this.filter.after = '';
                 this.datepickerChange();
             },
+             */
+            setView(name) {
+                this.settings.view = name;
+                this.filterChange();
+            },
             clearQuery() {
                 this.filter.q = '';
                 this.filterChange();
             },
-        }
+        },
     };
 </script>
