@@ -26,3 +26,6 @@ database-dsn: root:photoprism@tcp(localhost:4000)/photoprism?parseTime=true
 pid-filename: ~/.local/share/photoprism/photoprism.pid
 log-filename: ~/.local/share/photoprism/photoprism.log
 detach-server: false
+import-command:
+    file-types: jpeg
+

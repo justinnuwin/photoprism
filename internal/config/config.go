@@ -697,3 +697,7 @@ func (c *Config) Settings() *Settings {
 
 	return s
 }
+
+func (c *Config) ImportFileTypes() string {
+    return c.config.ImportParameters.FileTypes
+}

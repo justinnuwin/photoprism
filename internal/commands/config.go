@@ -17,6 +17,7 @@ var ConfigCommand = cli.Command{
 func configAction(ctx *cli.Context) error {
 	conf := config.NewConfig(ctx)
 
+	fmt.Printf("==== Global Configurations ====\n")
 	fmt.Printf("NAME                  VALUE\n")
 	fmt.Printf("name                  %s\n", conf.Name())
 	fmt.Printf("url                   %s\n", conf.Url())
@@ -70,6 +71,9 @@ func configAction(ctx *cli.Context) error {
 
 	fmt.Printf("hide-nsfw             %t\n", conf.HideNSFW())
 	fmt.Printf("upload-nsfw           %t\n", conf.UploadNSFW())
+
+	fmt.Printf("==== Import Configurations ====\n")
+    fmt.Printf("file-types            %s\n", conf.ImportFileTypes())
 
 	return nil
 }

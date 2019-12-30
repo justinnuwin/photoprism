@@ -535,7 +535,7 @@ func (m *MediaFile) IsVideo() bool {
 
 // IsPhoto checks if this media file is a photo / image.
 func (m *MediaFile) IsPhoto() bool {
-	return m.IsJpeg() || m.IsRaw() || m.IsHEIF()
+	return m.IsJpeg() || m.IsRaw() || m.IsHEIF()// || m.IsConvertable()
 }
 
 // Jpeg returns a the JPEG version of an image or sidecar file (if exists).

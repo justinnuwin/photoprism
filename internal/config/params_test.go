@@ -39,4 +39,5 @@ func TestParams_SetValuesFromFile(t *testing.T) {
 	assert.Equal(t, "internal", c.DatabaseDriver)
 	assert.Equal(t, "root:photoprism@tcp(localhost:4000)/photoprism?parseTime=true", c.DatabaseDsn)
 	assert.Equal(t, 81, c.HttpServerPort)
+    assert.Equal(t, "png, jpeg", c.ImportParameters.FileTypes)
 }

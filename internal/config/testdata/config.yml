@@ -16,3 +16,6 @@ database-driver: internal
 database-dsn: root:photoprism@tcp(localhost:4000)/photoprism?parseTime=true
 theme: lavendel
 language: english
+all: false
+import-command:
+    file-types: png, jpeg 

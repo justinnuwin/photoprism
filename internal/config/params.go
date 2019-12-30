@@ -68,6 +68,11 @@ type Params struct {
 	DetachServer       bool   `yaml:"detach-server" flag:"detach-server"`
 	HideNSFW           bool   `yaml:"hide-nsfw" flag:"hide-nsfw"`
 	UploadNSFW         bool   `yaml:"upload-nsfw" flag:"upload-nsfw"`
+    ImportParameters   ImportParams `yaml:"import-command" flag:"_import"`
+}
+
+type ImportParams struct {
+    FileTypes   string `yaml:"file-types" flag:"file-types"`
 }
 
 // NewParams() creates a new configuration entity by using two methods:
@@ -116,6 +121,7 @@ func (c *Params) SetValuesFromFile(fileName string) error {
 		return errors.New(fmt.Sprintf("config file not found: \"%s\"", fileName))
 	}
 
+    fmt.Println(fileName)
 	yamlConfig, err := ioutil.ReadFile(fileName)
 
 	if err != nil {
@@ -138,45 +144,61 @@ func (c *Params) SetValuesFromCliContext(ctx *cli.Context) error {
 
 		// Automatically assign values to fields with "flag" tag
 		if tagValue != "" {
-			switch t := fieldValue.Interface().(type) {
-			case int, int64:
-				// Only if explicitly set or current value is empty (use default)
-				if ctx.IsSet(tagValue) {
-					f := ctx.Int64(tagValue)
-					fieldValue.SetInt(f)
-				} else if ctx.GlobalIsSet(tagValue) || fieldValue.Int() == 0 {
-					f := ctx.GlobalInt64(tagValue)
-					fieldValue.SetInt(f)
-				}
-			case uint, uint64:
-				// Only if explicitly set or current value is empty (use default)
-				if ctx.IsSet(tagValue) {
-					f := ctx.Uint64(tagValue)
-					fieldValue.SetUint(f)
-				} else if ctx.GlobalIsSet(tagValue) || fieldValue.Uint() == 0 {
-					f := ctx.GlobalUint64(tagValue)
-					fieldValue.SetUint(f)
-				}
-			case string:
-				// Only if explicitly set or current value is empty (use default)
-				if ctx.IsSet(tagValue) {
-					f := ctx.String(tagValue)
-					fieldValue.SetString(f)
-				} else if ctx.GlobalIsSet(tagValue) || fieldValue.String() == "" {
-					f := ctx.GlobalString(tagValue)
-					fieldValue.SetString(f)
-				}
-			case bool:
-				if ctx.IsSet(tagValue) {
-					f := ctx.Bool(tagValue)
-					fieldValue.SetBool(f)
-				} else if ctx.GlobalIsSet(tagValue) {
-					f := ctx.GlobalBool(tagValue)
-					fieldValue.SetBool(f)
-				}
-			default:
-				log.Warnf("can't assign value of type %s from cli flag %s", t, tagValue)
-			}
+
+            var assignField = func() {
+                log.Debugf("Checking if %s passed in: %t", tagValue, ctx.IsSet(tagValue))
+                switch t := fieldValue.Interface().(type) {
+                case int, int64:
+                    // Only if explicitly set or current value is empty (use default)
+                    if ctx.IsSet(tagValue) {
+                        f := ctx.Int64(tagValue)
+                        fieldValue.SetInt(f)
+                    } else if ctx.GlobalIsSet(tagValue) || fieldValue.Int() == 0 {
+                        f := ctx.GlobalInt64(tagValue)
+                        fieldValue.SetInt(f)
+                    }
+                case uint, uint64:
+                    // Only if explicitly set or current value is empty (use default)
+                    if ctx.IsSet(tagValue) {
+                        f := ctx.Uint64(tagValue)
+                        fieldValue.SetUint(f)
+                    } else if ctx.GlobalIsSet(tagValue) || fieldValue.Uint() == 0 {
+                        f := ctx.GlobalUint64(tagValue)
+                        fieldValue.SetUint(f)
+                    }
+                case string:
+                    // Only if explicitly set or current value is empty (use default)
+                    if ctx.IsSet(tagValue) {
+                        f := ctx.String(tagValue)
+                        fieldValue.SetString(f)
+                    } else if ctx.GlobalIsSet(tagValue) || fieldValue.String() == "" {
+                        f := ctx.GlobalString(tagValue)
+                        fieldValue.SetString(f)
+                    }
+                case bool:
+                    if ctx.IsSet(tagValue) {
+                        f := ctx.Bool(tagValue)
+                        fieldValue.SetBool(f)
+                    } else if ctx.GlobalIsSet(tagValue) {
+                        f := ctx.GlobalBool(tagValue)
+                        fieldValue.SetBool(f)
+                    }
+                default:
+                    log.Warnf("can't assign value of type %T from cli flag %s", t, tagValue)
+                }
+            }
+
+            if fieldValue.Kind() == reflect.Struct {
+                fieldStruct := fieldValue.Addr().Interface()
+                fieldStructValue := reflect.ValueOf(fieldStruct).Elem()
+                for j := 0; j < fieldStructValue.NumField(); j++ {
+                    fieldValue = fieldStructValue.Field(j)
+                    tagValue = fieldStructValue.Type().Field(j).Tag.Get("flag")
+                    assignField()
+                }
+            } else {
+                assignField()
+            }
 		}
 	}
 
