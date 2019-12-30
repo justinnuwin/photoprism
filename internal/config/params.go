@@ -122,7 +122,6 @@ func (c *Params) SetValuesFromFile(fileName string) error {
 		return errors.New(fmt.Sprintf("config file not found: \"%s\"", fileName))
 	}
 
-    fmt.Println(fileName)
 	yamlConfig, err := ioutil.ReadFile(fileName)
 
 	if err != nil {
@@ -135,9 +134,7 @@ func (c *Params) SetValuesFromFile(fileName string) error {
 // SetValuesFromCliContext uses values from the CLI to setup configuration overrides
 // for the entity.
 func (c *Params) SetValuesFromCliContext(ctx *cli.Context) error {
-    fmt.Println(ctx.GlobalFlagNames())
 	v := reflect.ValueOf(c).Elem()
-    fmt.Println(ctx.Parent())
 
 	// Iterate through all config fields
 	for i := 0; i < v.NumField(); i++ {
