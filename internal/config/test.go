@@ -112,7 +112,6 @@ func CliTestContext() *cli.Context {
 	globalSet.String("assets-path", config.AssetsPath, "doc")
 	globalSet.String("originals-path", config.OriginalsPath, "doc")
 	globalSet.String("darktable-cli", config.DarktableBin, "doc")
-    globalSet.String("file-types", config.ImportParameters.FileTypes, "doc")
 
 	app := cli.NewApp()
 
@@ -122,7 +121,6 @@ func CliTestContext() *cli.Context {
 	c.Set("assets-path", config.AssetsPath)
 	c.Set("originals-path", config.OriginalsPath)
 	c.Set("darktable-cli", config.DarktableBin)
-    c.Set("file-types", config.ImportParameters.FileTypes)
 
 	return c
 }

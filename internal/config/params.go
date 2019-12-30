@@ -134,7 +134,9 @@ func (c *Params) SetValuesFromFile(fileName string) error {
 // SetValuesFromCliContext uses values from the CLI to setup configuration overrides
 // for the entity.
 func (c *Params) SetValuesFromCliContext(ctx *cli.Context) error {
+    fmt.Println(ctx.GlobalFlagNames())
 	v := reflect.ValueOf(c).Elem()
+    fmt.Println(ctx.Parent())
 
 	// Iterate through all config fields
 	for i := 0; i < v.NumField(); i++ {
@@ -146,7 +148,6 @@ func (c *Params) SetValuesFromCliContext(ctx *cli.Context) error {
 		if tagValue != "" {
 
             var assignField = func() {
-                log.Debugf("Checking if %s passed in: %t", tagValue, ctx.IsSet(tagValue))
                 switch t := fieldValue.Interface().(type) {
                 case int, int64:
                     // Only if explicitly set or current value is empty (use default)

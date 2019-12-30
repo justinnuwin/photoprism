@@ -18,7 +18,7 @@ var ImportCommand = cli.Command{
     // TODO: Add these configs to internal/config/params
     Flags: []cli.Flag{
         cli.StringSliceFlag{
-            Name: "file-type, t",
+            Name: "file-types, t",
             Usage: "Import only files with the following `TYPES` otherwise jpeg, raw, tiffs only",
             EnvVar: "PHOTOPRISM_IMPORT_TYPES",
         },
